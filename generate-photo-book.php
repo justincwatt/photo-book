@@ -12,11 +12,11 @@ $p = new PhotoBook();
 // optionally show lines around content areas for "debugging"
 // $p->setShowLines(true);
 
-// insert cover as first page
+// insert cover as first page (full-bleed image: 2175x1575px)
 $page = $p->newCover();
 $page->addImage('front.jpg');
 
-// insert back cover as second page
+// insert back cover as second page (full-bleed image: 2175x1575px)
 $page = $p->newCover();
 $page->addImage('back.jpg');
 

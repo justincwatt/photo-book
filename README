@@ -1,1 +1,19 @@
-photo book by justin watt http://justinsomnia.org/
+a photo book generator
+----------------------
+
+this is a personal project i started in 2007 to generate a yearly photo book 
+(as a 5x7" pdf) which I had printed by viovio http://viovio.com/
+
+i described some of my motivation for the project here:
+http://justinsomnia.org/2008/01/the-making-of-a-photo-book/
+
+in 2009 i significantly rewrote the layout code to add gutters and increase 
+"safety" margins per viovio's pdf specs: http://www.viovio.com/wiki/PDF+Specs
+
+this code is intended for illustrative purposes only, many of the layout details
+are hardcoded, which suit my purposes just fine, but probably won't suit yours 
+without significant modification.
+
+justin watt
+http://justinsomnia.org/
+
