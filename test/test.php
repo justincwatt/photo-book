@@ -15,6 +15,7 @@ $pdf->SetFont('DejaVuSerif', '', 16);
 
 $pdf->AddPage();
 
+// with apologies to sam ruby (http://intertwingly.net/stories/2004/04/14/i18n.html)
 $text = "Iñtërnâtiônàlizætiøn";
 
 $pdf->Cell(2, 2, $text);
