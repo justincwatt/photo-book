@@ -2,10 +2,16 @@ a photo book generator
 ----------------------
 
 this is a personal project i started in 2007 to generate a yearly photo book 
-(as a 5x7" pdf) which I had printed by viovio http://viovio.com/
+(as a 5x7" pdf) which i had printed by viovio http://viovio.com/
 
 i described some of my motivation for the project here:
-http://justinsomnia.org/2008/01/the-making-of-a-photo-book/
+2007: http://justinsomnia.org/2008/01/the-making-of-a-photo-book/
+
+i have used the code to generate photo books for each subsequent year:
+2008: http://justinsomnia.org/2009/01/the-2008-photo-book/
+2009: http://justinsomnia.org/2010/01/the-2009-photo-book/
+2010: http://justinsomnia.org/2011/09/the-2010-photo-book/
+2011: http://justinsomnia.org/2012/01/the-2011-photo-book/
 
 in 2009 i significantly rewrote the layout code to add gutters and increase 
 "safety" margins per viovio's pdf specs: http://www.viovio.com/wiki/PDF+Specs
