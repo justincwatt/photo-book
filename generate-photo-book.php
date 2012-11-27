@@ -1,7 +1,26 @@
+#!/usr/bin/php
 <?php
 require('./fpdf/fpdf.php');
 ini_set("memory_limit","512M");
 define('FPDF_FONTPATH','./fpdf/');
+
+if ($argc != 3 || in_array($argv[1], array('--help', '-help', '-h', '-?'))) {
+?>
+
+Photo Book Generator
+
+  Usage:
+  <?php echo $argv[0]; ?> <INPUT> <OUTPUT>
+
+  <INPUT> is the path/name of the data file that defines your photo filenames and captions
+
+  <OUTPUT> is the path/name of the PDF file to output
+
+  With the --help, -help, -h, or -? options, you can get this help.
+
+<?php
+  exit;
+}
 
 /*
 // sample usage:
