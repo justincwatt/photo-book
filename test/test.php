@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 require('../fpdf/fpdf.php');
 define('FPDF_FONTPATH','../fpdf/');
@@ -6,7 +7,7 @@ define('FPDF_FONTPATH','../fpdf/');
 // the file must be saved with the ISO-8859-15 encoding, not unicode
 
 // to test, on the command line run:
-// php test.php > test.pdf
+// ./test.php > test.pdf
 
 $pdf = new FPDF('P', 'in', 'Letter');
 
@@ -21,4 +22,3 @@ $text = "Iñtërnâtiônàlizætiøn";
 $pdf->Cell(2, 2, $text);
 
 $pdf->Output();
-
