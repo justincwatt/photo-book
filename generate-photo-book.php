@@ -33,14 +33,14 @@ if ($handle) {
   while (($buffer = fgets($handle, 4096)) !== false) {
     $buffer = trim($buffer);
 
-    // skip comment lines
+    // Skip comment lines
     if (substr($buffer, 0, 1) == '#') {
       continue;
     }
 
     // If a new page/cover hasn't already been created, or if we've hit a 
     // blank line and the previous page has content (this prevents
-    // multiple blank lines from creating multiple pages), then create a new page
+    // multiple blank lines from creating multiple pages), then create a new page.
     if (!isset($page) || ($buffer == '' && $page->hasContent())) {
       if ($p->coverCount() < 2) {
         $page = $p->newCover();
@@ -49,7 +49,7 @@ if ($handle) {
       }
     }
 
-    // sniff content as image or caption
+    // Sniff content as image or caption
     if (preg_match('/.jpg$/i', $buffer)) {
       print "image: " . $buffer . "\n";
       $page->addImage($buffer);
