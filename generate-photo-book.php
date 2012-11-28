@@ -22,38 +22,49 @@ Photo Book Generator
   exit;
 }
 
-/*
-// sample usage:
+$input_file = $argv[1];
+$output_file = $argv[2];
 
-require('generate-photo-book.php');
-$p = new PhotoBook();
+// read input file
+$handle = fopen($input_file, "r");
+if ($handle) {
+  $p = new PhotoBook();
+  
+  while (($buffer = fgets($handle, 4096)) !== false) {
+    $buffer = trim($buffer);
 
-// optionally show lines around content areas for "debugging"
-// $p->setShowLines(true);
+    // skip comment lines
+    if (substr($buffer, 0, 1) == '#') {
+      continue;
+    }
 
-// insert cover as first page (full-bleed image: 2175x1575px)
-$page = $p->newCover();
-$page->addImage('front.jpg');
+    // If a new page/cover hasn't already been created, or if we've hit a 
+    // blank line and the previous page has content (this prevents
+    // multiple blank lines from creating multiple pages), then create a new page
+    if (!isset($page) || ($buffer == '' && $page->hasContent())) {
+      if ($p->coverCount() < 2) {
+        $page = $p->newCover();
+      } else {
+        $page = $p->newPage();
+      }
+    }
 
-// insert back cover as second page (full-bleed image: 2175x1575px)
-$page = $p->newCover();
-$page->addImage('back.jpg');
+    // sniff content as image or caption
+    if (preg_match('/.jpg$/i', $buffer)) {
+      print "image: " . $buffer . "\n";
+      $page->addImage($buffer);
+    } elseif ($buffer != '') {
+      print "caption: " . $buffer . "\n";
+      $page->addCaption($buffer);
+    }
+  }
+  if (!feof($handle)) {
+    echo "Error: unexpected fgets() fail\n";
+  }
+  fclose($handle);
+}
 
-// add two vertical images side by side (with aspect ratio of ~3:4, 936x1272px)
-$page = $p->newPage();
-$page->addImage('IMG_1001.JPG');
-$page->addImage('IMG_1001.JPG');
-$page->addCaption("Caption line 1");
-$page->addCaption("Caption line 2");
-
-// add one horizontal image (with an aspect ratio of 3:2, 1908x1272px)
-$page = $p->newPage();
-$page->addImage('IMG_8915.JPG');
-$page->addCaption("Caption line 1");
-$page->addCaption("Caption line 2");
-
-$p->render();
-*/
+$p->render($output_file, dirname($input_file) . '/');
 
 
 class Page
@@ -81,6 +92,11 @@ class Page
   function captions()
   {
     return $this->captions;
+  }
+
+  function hasContent()
+  {
+    return (bool)(count($this->images) || count($this->captions));
   }
 }
 
@@ -112,14 +128,22 @@ class PhotoBook
     return $this->pages[count($this->pages)-1];
   }
 
+  function coverCount()
+  {
+    return count($this->covers);
+  }
+
+  function pageCount()
+  {
+    return count($this->pages);
+  }
+
   function setShowLines($bool)
   {
     $this->show_lines = $bool;
   }
 
-  function render() {
-    $image_dir = 'images/';
-
+  function render($filename, $image_dir) {
     $pdf = new FPDF("L", 'mm', array($this->height, $this->width));
     $pdf->SetAutoPageBreak(false);
 
@@ -248,18 +272,18 @@ class PhotoBook
           break;
       }
 
-      if ($captions[0]) {
+      if (isset($captions[0])) {
         $pdf->SetXY($caption1_x, $caption1_y);
         $pdf->Cell($caption1_w, $caption1_h, utf8_decode($captions[0]), $this->show_lines, 0, 'C');
       }
       
-      if ($captions[1]) {
+      if (isset($captions[1])) {
         $pdf->SetXY($caption2_x, $caption2_y);
         $pdf->Cell($caption2_w, $caption2_h, utf8_decode($captions[1]), $this->show_lines, 0, 'C');
       }
     }
 
-    $pdf->Output('book.pdf');
+    $pdf->Output($filename);
     print "\n";
   }
 }
