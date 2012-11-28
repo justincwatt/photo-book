@@ -1,0 +1,18 @@
+# First image is treated as a full-bleed front cover 2175x1575px)
+front.jpg
+
+# Second image is treated as a full-bleed back cover 2175x1575px)
+back.jpg
+
+# Add two vertical images side by side (with aspect ratio of ~3:4, 936x1272px)
+IMG_0001.JPG
+IMG_0002.JPG
+Caption line 1
+Caption line 2
+
+# Separate pages with one or more blank lines
+# Prefix comments with a hash (#) character
+# Add one horizontal image (with an aspect ratio of 3:2, 1908x1272px)
+IMG_0003.JPG
+Caption line 1
+Caption line 2
